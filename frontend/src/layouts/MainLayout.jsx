@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/common/Header';
-import Sidebar from '../components/common/Sidebar';
+import Header from '../components/common/Header.jsx';
+import Sidebar from '../components/common/Sidebar.jsx';
 
-const MainLayout: React.FC = () => {
+const MainLayout = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />

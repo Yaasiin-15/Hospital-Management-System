@@ -1,9 +1,9 @@
 import React from 'react';
 import { Bell, Search, User, LogOut } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import Button from '../ui/Button';
+import { useAuth } from '../../context/AuthContext.jsx';
+import Button from '../ui/Button.jsx';
 
-const Header: React.FC = () => {
+const Header = () => {
   const { user, logout } = useAuth();
 
   return (
