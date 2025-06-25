@@ -8,15 +8,15 @@ import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
 
 // Auth Pages
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login from './pages/auth/Login.jsx';
+import Register from './pages/auth/Register.jsx';
 
 // Dashboard Pages
-import AdminDashboard from './pages/admin/Dashboard';
-import DoctorDashboard from './pages/doctor/Dashboard';
-import NurseDashboard from './pages/nurse/Dashboard';
-import ReceptionistDashboard from './pages/receptionist/Dashboard';
-import PatientDashboard from './pages/patient/Dashboard';
+import AdminDashboard from './pages/admin/Dashboard.jsx';
+import DoctorDashboard from './pages/doctor/Dashboard.jsx';
+import NurseDashboard from './pages/nurse/Dashboard.jsx';
+import ReceptionistDashboard from './pages/receptionist/Dashboard.jsx';
+import PatientDashboard from './pages/patient/Dashboard.jsx';
 
 // Context Providers
 import { AuthProvider } from './context/AuthContext';
