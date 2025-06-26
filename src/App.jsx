@@ -13,6 +13,10 @@ import Register from './pages/auth/Register.jsx';
 
 // Dashboard Pages
 import AdminDashboard from './pages/admin/Dashboard.jsx';
+import SystemMonitoring from './pages/admin/SystemMonitoring.jsx';
+import AuditLogs from './pages/admin/AuditLogs.jsx';
+import DepartmentManagement from './pages/admin/DepartmentManagement.jsx';
+import BackupManagement from './pages/admin/BackupManagement.jsx';
 import DoctorDashboard from './pages/doctor/Dashboard.jsx';
 import NurseDashboard from './pages/nurse/Dashboard.jsx';
 import ReceptionistDashboard from './pages/receptionist/Dashboard.jsx';
@@ -76,6 +80,10 @@ function App() {
                 
                 {/* Admin Routes */}
                 <Route path="admin" element={<AdminDashboard />} />
+                <Route path="admin/monitoring" element={<SystemMonitoring />} />
+                <Route path="admin/audit-logs" element={<AuditLogs />} />
+                <Route path="admin/departments" element={<DepartmentManagement />} />
+                <Route path="admin/backup" element={<BackupManagement />} />
                 <Route path="admin/users" element={<UserManagement />} />
                 <Route path="admin/reports" element={<Reports />} />
                 <Route path="admin/settings" element={<Settings />} />

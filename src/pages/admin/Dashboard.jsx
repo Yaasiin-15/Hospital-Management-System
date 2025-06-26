@@ -68,22 +68,22 @@ const AdminDashboard = () => {
           <div className="p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
             <div className="grid grid-cols-2 gap-4">
-              <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <a href="/admin/users" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors block text-center">
                 <Users className="h-6 w-6 text-blue-600 mx-auto mb-2" />
                 <span className="text-sm font-medium">Manage Users</span>
-              </button>
-              <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              </a>
+              <a href="/admin/reports" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors block text-center">
                 <FileText className="h-6 w-6 text-green-600 mx-auto mb-2" />
                 <span className="text-sm font-medium">View Reports</span>
-              </button>
-              <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              </a>
+              <a href="/admin/departments" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors block text-center">
                 <Calendar className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                <span className="text-sm font-medium">Schedule</span>
-              </button>
-              <button className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <span className="text-sm font-medium">Departments</span>
+              </a>
+              <a href="/admin/monitoring" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors block text-center">
                 <TrendingUp className="h-6 w-6 text-yellow-600 mx-auto mb-2" />
-                <span className="text-sm font-medium">Analytics</span>
-              </button>
+                <span className="text-sm font-medium">System Monitor</span>
+              </a>
             </div>
           </div>
         </Card>

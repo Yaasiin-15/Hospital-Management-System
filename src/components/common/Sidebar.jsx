@@ -9,7 +9,8 @@ import {
   Settings,
   Activity,
   UserCheck,
-  Stethoscope
+  Stethoscope,
+  Database
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types';
@@ -26,6 +27,10 @@ const Sidebar = () => {
       case UserRole.ADMIN:
         return [
           ...baseItems,
+          { name: 'System Monitoring', href: '/admin/monitoring', icon: Activity },
+          { name: 'Audit Logs', href: '/admin/audit-logs', icon: FileText },
+          { name: 'Departments', href: '/admin/departments', icon: Users },
+          { name: 'Backup Management', href: '/admin/backup', icon: Database },
           { name: 'User Management', href: '/admin/users', icon: Users },
           { name: 'Reports', href: '/admin/reports', icon: FileText },
           { name: 'Settings', href: '/admin/settings', icon: Settings }
