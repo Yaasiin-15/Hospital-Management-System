@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { UserRole } from '../types/index.js';
 
-const AuthContext = createContext();
+const AuthContext = createContext(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
@@ -12,23 +13,44 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing auth token/session
+    // Check for stored auth token on app load
     const token = localStorage.getItem('authToken');
     if (token) {
-      // Validate token and set user
+      // Validate token and get user info
       // This would typically involve an API call
-      setUser({ id: 1, role: 'ADMIN', name: 'Admin User' });
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
     }
-    setLoading(false);
   }, []);
 
-  const login = async (credentials) => {
-    // Implement login logic
-    setUser({ id: 1, role: 'ADMIN', name: 'Admin User' });
-    localStorage.setItem('authToken', 'dummy-token');
+  const login = async (email, password) => {
+    setIsLoading(true);
+    try {
+      // API call to login
+      // const response = await authService.login(email, password);
+      // setUser(response.user);
+      // localStorage.setItem('authToken', response.token);
+      
+      // Mock user for development
+      const mockUser = {
+        id: '1',
+        username: email,
+        email,
+        role: UserRole.ADMIN,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      setUser(mockUser);
+      localStorage.setItem('authToken', 'mock-token');
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const logout = () => {
@@ -40,7 +62,8 @@ export const AuthProvider = ({ children }) => {
     user,
     login,
     logout,
-    loading
+    isLoading,
+    isAuthenticated: !!user
   };
 
   return (
