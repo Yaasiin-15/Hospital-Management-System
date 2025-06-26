@@ -2,12 +2,11 @@
 export default {
   content: [
     './index.html',
-    './src/**/*.{js,ts,jsx,tsx}'
+    './src/**/*.{js,ts,jsx,tsx}',
+    "./index.html",
+    "./src/**/*.{js,jsx}"
   ],
   darkMode: 'class',
-    "./index.html",
-    "./src/**/*.{js,jsx}",
-  ],
   theme: {
     extend: {
       colors: {
@@ -22,24 +21,20 @@ export default {
           700: '#0369a1',
           800: '#075985',
           900: '#0c4a6e',
-          950: '#082f49',
+          950: '#082f49'
         }
       },
       fontSize: {
-        '2xs': '0.625rem', // 10px
-      },
-      }
-    },
-  },
+        '2xs': '0.625rem' // 10px
       },
       transitionProperty: {
         'height': 'height',
         'max-height': 'max-height',
-        'spacing': 'margin, padding',
+        'spacing': 'margin, padding'
       },
       screens: {
-        'xs': '475px',
-      },
+        'xs': '475px'
+      }
     }
   },
   plugins: [],
@@ -48,6 +43,7 @@ export default {
       opacity: ['disabled'],
       cursor: ['disabled'],
       backgroundColor: ['active', 'disabled'],
-      textColor: ['active', 'disabled'],
+      textColor: ['active', 'disabled']
     }
   }
+}
