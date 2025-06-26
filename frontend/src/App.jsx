@@ -100,5 +100,3 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
 };
 
 export default Header;
-  )
-}
