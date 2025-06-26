@@ -1,11 +1,16 @@
 package com.hospital.management.service;
 
+import com.hospital.management.dto.response.AuthResponse;
 import com.hospital.management.dto.request.LoginRequest;
 import com.hospital.management.dto.request.RegisterRequest;
-import com.hospital.management.dto.response.AuthResponse;
 import com.hospital.management.model.User;
 import com.hospital.management.repository.UserRepository;
+import com.hospital.management.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +23,36 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
     public AuthResponse login(LoginRequest loginRequest) {
-        // Mock implementation - replace with actual JWT logic
-        User user = userRepository.findByEmail(loginRequest.getEmail())
-            .orElseThrow(() -> new RuntimeException("User not found"));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    loginRequest.getEmail(), 
+                    loginRequest.getPassword()
+                )
+            );
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            final String token = jwtUtil.generateToken(userDetails);
+
+            User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
+            
+            return new AuthResponse(
+                token, 
+                user.getId(), 
+                user.getUsername(), 
+                user.getEmail(), 
+                user.getRole()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Authentication failed: " + e.getMessage());
         }
-
-        String token = "mock-jwt-token"; // Replace with actual JWT generation
-        
-        return new AuthResponse(token, user.getId(), user.getUsername(), user.getEmail(), user.getRole());
     }
 
     public AuthResponse register(RegisterRequest registerRequest) {
@@ -49,7 +72,13 @@ public class AuthService {
 
         user = userRepository.save(user);
 
-        String token = "mock-jwt-token"; // Replace with actual JWT generation
+        final UserDetails userDetails = org.springframework.security.core.userdetails.User
+            .withUsername(user.getEmail())
+            .password(user.getPassword())
+            .authorities("ROLE_" + user.getRole().name())
+            .build();
+
+        final String token = jwtUtil.generateToken(userDetails);
         
         return new AuthResponse(token, user.getId(), user.getUsername(), user.getEmail(), user.getRole());
     }

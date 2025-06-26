@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { 
   Home, 
   Users, 
@@ -10,13 +10,22 @@ import {
   Activity,
   UserCheck,
   Stethoscope,
-  Database
+  Database,
+  X
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext.jsx';
 import { UserRole } from '../../types';
 
-const Sidebar = () => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user } = useAuth();
+  const location = useLocation();
+
+  // Close sidebar on navigation for mobile
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
+  }, [location.pathname, setSidebarOpen]);
 
   const getNavigationItems = () => {
     const baseItems = [
@@ -77,15 +86,22 @@ const Sidebar = () => {
   const navigationItems = getNavigationItems();
 
   return (
-    <div className="bg-white dark:bg-gray-800 w-64 h-full shadow-lg flex flex-col overflow-hidden">
-      <div className="p-6">
+    <div className="bg-white dark:bg-gray-800 w-64 h-full shadow-lg flex flex-col overflow-hidden relative">
+      {/* Mobile close button */}
+      <button 
+        className="md:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+        onClick={() => setSidebarOpen(false)}
+      >
+        <X className="h-5 w-5" />
+      </button>
+      <div className="p-4 md:p-6">
         <div className="flex items-center space-x-2">
           <Activity className="h-8 w-8 text-blue-600" />
           <span className="text-xl font-bold text-gray-900 dark:text-white">HMS</span>
         </div>
       </div>
       
-      <nav className="mt-6">
+      <nav className="mt-2 md:mt-6 flex-1 overflow-y-auto">
         <div className="px-3">
           {navigationItems.map((item) => (
             <NavLink
@@ -99,7 +115,7 @@ const Sidebar = () => {
                 }`
               }
             >
-              <item.icon className="mr-3 h-5 w-5" />
+              <item.icon className="h-5 w-5 mr-3 flex-shrink-0" />
               {item.name}
             </NavLink>
           ))}

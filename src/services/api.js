@@ -2,7 +2,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast'; 
 import { handleApiError } from '../utils/helpers';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = '/api';
 
 // Create axios instance
 const api = axios.create({
@@ -29,15 +29,30 @@ api.interceptors.request.use(
 // Response interceptor to handle errors
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('authToken');
-      window.location.href = '/auth/login';
+      // Only redirect if not already on auth pages
+      if (!window.location.pathname.includes('/auth/')) {
+        localStorage.removeItem('authToken');
+        window.location.href = '/auth/login';
+        toast.error('Session expired. Please login again.');
+      }
+    } else if (error.message === 'Network Error') {
+      toast.error('Cannot connect to server. Using mock data.');
+      // Create a mock response when API is not available
+      if (error.config?.mockResponse) {
+        return Promise.resolve({ 
+          data: error.config.mockResponse,
+          mockData: true
+        });
+      }
     }
-    
-    const message = error.response?.data?.message || 'An error occurred';
-    const errorMsg = handleApiError(error);
-    toast.error(errorMsg);
+
+    if (error.response) {
+      const message = error.response?.data?.message || 'An error occurred';
+      const errorMsg = handleApiError(error);
+      toast.error(errorMsg);
+    }
     
     return Promise.reject(error);
   }

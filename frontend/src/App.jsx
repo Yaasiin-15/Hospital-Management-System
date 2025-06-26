@@ -1,78 +1,104 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Toaster } from 'react-hot-toast';
+import React, { useState, useRef } from 'react';
+import { Search, User, LogOut, Menu, Sun, Moon, Bell } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { useTheme } from '../../context/ThemeContext';
+import Button from '../ui/Button.jsx';
+import { useClickOutside } from '../../hooks/useApi';
+import SearchInput from '../ui/SearchInput.jsx';
 
-// Layouts
-import MainLayout from './layouts/MainLayout.jsx';
-import AuthLayout from './layouts/AuthLayout.jsx';
+const Header = ({ toggleSidebar, sidebarOpen }) => {
+  const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const userMenuRef = useRef(null);
+  
+  useClickOutside(userMenuRef, () => setShowUserMenu(false));
+  
+  const handleLogout = () => {
+    setShowUserMenu(false);
+    logout();
+  };
 
-// Auth Pages
-import Login from './pages/auth/Login.jsx';
-import Register from './pages/auth/Register.jsx';
-
-// Dashboard Pages
-import AdminDashboard from './pages/admin/Dashboard.jsx';
-import DoctorDashboard from './pages/doctor/Dashboard.jsx';
-import NurseDashboard from './pages/nurse/Dashboard.jsx';
-import ReceptionistDashboard from './pages/receptionist/Dashboard.jsx';
-import PatientDashboard from './pages/patient/Dashboard.jsx';
-
-// Context Providers
-import { AuthProvider } from './context/AuthContext.jsx';
-import ProtectedRoute from './components/common/ProtectedRoute.jsx';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
-function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router>
-          <div className="min-h-screen bg-gray-50">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/auth" element={<AuthLayout />}>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-              </Route>
+    <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
+      <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+        <div className="flex items-center">
+          <Button 
+            variant="ghost"
+            size="sm"
+            onClick={toggleSidebar}
+            className="mr-2 md:mr-3 md:hidden"
+            aria-label="Toggle sidebar"
+          >
+            <Menu className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          </Button>
 
-              {/* Protected Routes */}
-              <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
-                <Route index element={<Navigate to="/admin" replace />} />
-                
-                {/* Admin Routes */}
-                <Route path="admin" element={<AdminDashboard />} />
-                
-                {/* Doctor Routes */}
-                <Route path="doctor" element={<DoctorDashboard />} />
-                
-                {/* Nurse Routes */}
-                <Route path="nurse" element={<NurseDashboard />} />
-                
-                {/* Receptionist Routes */}
-                <Route path="receptionist" element={<ReceptionistDashboard />} />
-                
-                {/* Patient Routes */}
-                <Route path="patient" element={<PatientDashboard />} />
-              </Route>
-
-              {/* Redirect to login */}
-              <Route path="*" element={<Navigate to="/auth/login" replace />} />
-            </Routes>
-            <Toaster position="top-right" />
+          <h1 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white hidden md:block">
+            Hospital Management System
+          </h1>
+          <h1 className="text-lg font-semibold text-gray-900 dark:text-white md:hidden">
+            HMS
+          </h1>
+        </div>
+        <div className="flex items-center space-x-4">
+          {/* Search */}
+          <div className="hidden md:block w-64 lg:w-80">
+            <SearchInput placeholder="Search..." />
           </div>
-        </Router>
-      </AuthProvider>
-    </QueryClientProvider>
-  );
-}
+          
+          {/* Mobile Search Toggle */}
+          <div className="md:hidden">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="p-2" 
+              onClick={() => setShowMobileSearch(!showMobileSearch)}
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+          </div>
+          
+          {/* Mobile Search Expanded */}
+          {showMobileSearch && (
+            <div className="absolute top-16 left-0 right-0 p-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-50 md:hidden">
+              <SearchInput 
+                placeholder="Search..." 
+                autoFocus={true}
+                onBlur={() => setShowMobileSearch(false)}
+              />
+            </div>
+          )}
 
-export default App;
+          {/* Notifications */}
+          <Button variant="ghost" size="sm" className="p-2">
+            <Bell className="h-5 w-5" />
+          </Button>
+          
+          {/* Theme Toggle */}
+          <Button variant="ghost" size="sm" className="p-2" onClick={toggleTheme}>
+            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
+
+          {/* User Menu */}
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
+              <User className="h-8 w-8 text-gray-400" />
+              <div className="text-sm">
+                <p className="font-medium text-gray-900 dark:text-white">{user?.username}</p>
+                <p className="text-gray-500 dark:text-gray-400">{user?.role}</p>
+              </div>
+            </div>
+            <Button variant="ghost" size="sm" onClick={logout} className="p-2">
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+  )
+}

@@ -1,30 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
-import Button from '../../components/ui/Button.jsx';
 import Input from '../../components/ui/Input.jsx';
 import Card from '../../components/ui/Card.jsx';
-import toast from 'react-hot-toast';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { isLoading } = useAuth();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  return (
+    <Card className="w-full max-w-md mx-auto shadow-xl">
+      <LoginForm />
 
     try {
       await login(formData.email, formData.password);
@@ -60,25 +45,10 @@ const Login = () => {
           type="password"
           name="password"
           value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter your password"
-          required
-        />
-
-        <Button
-          type="submit"
-          className="w-full"
-          loading={isLoading}
-          disabled={isLoading}
-        >
-          Sign In
-        </Button>
-      </form>
-
       <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Don't have an account?{' '}
-          <a href="/auth/register" className="text-blue-600 hover:text-blue-500">
+          <Link to="/auth/register" className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
             Sign up
           </a>
         </p>
