@@ -200,7 +200,7 @@ const Home = () => {
             {[
               { name: 'John Smith', role: 'Patient', quote: 'The care I received was exceptional. The staff was attentive and the doctors were knowledgeable and compassionate.' },
               { name: 'Sarah Johnson', role: 'Patient', quote: 'The online appointment system made scheduling so easy. I was able to see my doctor quickly and received excellent care.' },
-              { name: 'Michael Brown', role: 'Patient', quote: 'The hospital's electronic medical records system ensured that all my doctors had access to my complete medical history.' }
+              { name: 'Michael Brown', role: 'Patient', quote: 'The hospital\'s electronic medical records system ensured that all my doctors had access to my complete medical history.' }
             ].map((testimonial, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center mb-4">

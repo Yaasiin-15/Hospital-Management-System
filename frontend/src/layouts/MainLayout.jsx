@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../components/common/Header';
 import Sidebar from '../components/common/Sidebar';
 import { useState, useEffect, useRef } from 'react';
-import { useWindowSize } from '../hooks/useApi';
+import { useWindowSize } from '../hooks/useApi.js';
 import BreadcrumbNav from '../components/common/BreadcrumbNav';
 
 const MainLayout = () => {
