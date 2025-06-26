@@ -1,332 +1,118 @@
-// This file provides mock data for when the backend is not available
-// It's used to allow the frontend to function in a demo mode
+// Mock data for hospital management system
 
-// Mock data for patients
+const users = [
+  { id: 1, name: 'Admin User', email: 'admin@hospital.com', role: 'ADMIN' },
+  { id: 2, name: 'Dr. Sarah Smith', email: 'doctor@hospital.com', role: 'DOCTOR' },
+  { id: 3, name: 'Nurse Johnson', email: 'nurse@hospital.com', role: 'NURSE' },
+  { id: 4, name: 'Front Desk', email: 'receptionist@hospital.com', role: 'RECEPTIONIST' },
+  { id: 5, name: 'John Doe', email: 'patient@hospital.com', role: 'PATIENT' }
+];
+
 const patients = [
-  {
-    id: 'p1',
-    name: 'John Doe',
-    patientId: 'P001',
-    age: 45,
-    gender: 'Male',
-    phone: '+1 (555) 123-4567',
-    email: 'john.doe@email.com',
-    address: '123 Main St, City, State 12345',
-    lastVisit: '2025-01-15',
-    nextAppointment: '2025-02-15',
-    condition: 'Hypertension',
-    status: 'Active',
-    insuranceProvider: 'Blue Cross Blue Shield'
-  },
-  {
-    id: 'p2',
-    name: 'Jane Smith',
-    patientId: 'P002',
-    age: 32,
-    gender: 'Female',
-    phone: '+1 (555) 234-5678',
-    email: 'jane.smith@email.com',
-    address: '456 Oak Ave, City, State 12345',
-    lastVisit: '2025-01-10',
-    nextAppointment: '2025-03-10',
-    condition: 'Diabetes Type 2',
-    status: 'Active',
-    insuranceProvider: 'Aetna'
-  },
-  {
-    id: 'p3',
-    name: 'Mike Johnson',
-    patientId: 'P003',
-    age: 28,
-    gender: 'Male',
-    phone: '+1 (555) 345-6789',
-    email: 'mike.johnson@email.com',
-    address: '789 Pine St, City, State 12345',
-    lastVisit: '2025-01-08',
-    nextAppointment: '2025-01-22',
-    condition: 'Post-surgery recovery',
-    status: 'Recovering',
-    insuranceProvider: 'Cigna'
-  }
+  { id: 1, name: 'John Doe', age: 45, gender: 'Male', phone: '555-123-4567', address: '123 Main St' },
+  { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', phone: '555-234-5678', address: '456 Oak Ave' },
+  { id: 3, name: 'Michael Johnson', age: 28, gender: 'Male', phone: '555-345-6789', address: '789 Pine Rd' }
 ];
 
-// Mock data for doctors
 const doctors = [
-  {
-    id: 'd1',
-    name: 'Dr. Sarah Smith',
-    specialty: 'Cardiologist',
-    department: 'Cardiology',
-    email: 'dr.smith@hospital.com',
-    phone: '+1 (555) 987-6543'
-  },
-  {
-    id: 'd2',
-    name: 'Dr. Michael Johnson',
-    specialty: 'General Practitioner',
-    department: 'General Medicine',
-    email: 'dr.johnson@hospital.com',
-    phone: '+1 (555) 876-5432'
-  },
-  {
-    id: 'd3',
-    name: 'Dr. Emily Brown',
-    specialty: 'Dermatologist',
-    department: 'Dermatology',
-    email: 'dr.brown@hospital.com',
-    phone: '+1 (555) 765-4321'
-  }
+  { id: 1, name: 'Dr. Sarah Smith', specialization: 'Cardiology', phone: '555-987-6543' },
+  { id: 2, name: 'Dr. Michael Brown', specialization: 'Neurology', phone: '555-876-5432' },
+  { id: 3, name: 'Dr. Emily Wilson', specialization: 'Pediatrics', phone: '555-765-4321' }
 ];
 
-// Mock data for appointments
 const appointments = [
-  {
-    id: 'a1',
-    patient: patients[0],
-    doctor: doctors[0],
-    date: '2025-01-15',
-    time: '10:30 AM',
+  { 
+    id: 1, 
+    patientId: 1, 
+    patientName: 'John Doe',
+    doctorId: 1, 
+    doctorName: 'Dr. Sarah Smith',
+    date: '2024-01-15', 
+    time: '09:00', 
+    status: 'confirmed',
     type: 'Follow-up',
-    status: 'confirmed',
-    notes: 'Follow-up for hypertension'
+    notes: 'Blood pressure check'
   },
-  {
-    id: 'a2',
-    patient: patients[1],
-    doctor: doctors[1],
-    date: '2025-01-22',
-    time: '2:00 PM',
-    type: 'Routine Checkup',
-    status: 'confirmed',
-    notes: 'Annual physical examination'
-  },
-  {
-    id: 'a3',
-    patient: patients[2],
-    doctor: doctors[2],
-    date: '2025-01-08',
-    time: '11:00 AM',
+  { 
+    id: 2, 
+    patientId: 2, 
+    patientName: 'Jane Smith',
+    doctorId: 1, 
+    doctorName: 'Dr. Sarah Smith',
+    date: '2024-01-15', 
+    time: '10:00', 
+    status: 'pending',
     type: 'Consultation',
-    status: 'completed',
-    notes: 'Skin examination completed'
+    notes: 'New patient consultation'
+  },
+  { 
+    id: 3, 
+    patientId: 3, 
+    patientName: 'Michael Johnson',
+    doctorId: 1, 
+    doctorName: 'Dr. Sarah Smith',
+    date: '2024-01-16', 
+    time: '14:00', 
+    status: 'confirmed',
+    type: 'Check-up',
+    notes: 'Regular check-up'
   }
 ];
 
-// Mock data for medical records
 const medicalRecords = [
   {
-    id: 'mr1',
-    patient: patients[0],
-    doctor: doctors[0],
-    date: '2025-01-01',
-    diagnosis: 'Hypertension Follow-up',
+    id: 1,
+    patientId: 1,
+    patientName: 'John Doe',
+    doctorId: 1,
+    doctorName: 'Dr. Sarah Smith',
+    date: '2024-01-05',
+    diagnosis: 'Hypertension',
     treatment: 'Prescribed Lisinopril 10mg daily',
-    notes: 'Blood pressure: 140/90. Patient advised on diet and exercise.'
+    notes: 'Blood pressure 140/90. Follow up in 2 weeks.'
   },
   {
-    id: 'mr2',
-    patient: patients[1],
-    doctor: doctors[1],
-    date: '2025-01-10',
+    id: 2,
+    patientId: 2,
+    patientName: 'Jane Smith',
+    doctorId: 1,
+    doctorName: 'Dr. Sarah Smith',
+    date: '2024-01-08',
     diagnosis: 'Type 2 Diabetes',
-    treatment: 'Metformin 500mg twice daily',
-    notes: 'HbA1c: 7.2%. Discussed glucose monitoring and dietary changes.'
-  },
-  {
-    id: 'mr3',
-    patient: patients[2],
-    doctor: doctors[2],
-    date: '2025-01-08',
-    diagnosis: 'Post-operative care',
-    treatment: 'Wound care and antibiotics',
-    notes: 'Appendectomy recovery progressing well. No signs of infection.'
+    treatment: 'Prescribed Metformin 500mg twice daily',
+    notes: 'HbA1c 7.2%. Referred to nutritionist.'
   }
 ];
 
-// Mock data for billing
-const billingRecords = [
-  {
-    id: 'b1',
-    patient: patients[0],
-    date: '2025-01-01',
-    amount: 250.00,
-    description: 'Cardiology Consultation - Dr. Sarah Smith',
-    status: 'pending',
-    dueDate: '2025-01-31'
-  },
-  {
-    id: 'b2',
-    patient: patients[1],
-    date: '2025-01-10',
-    amount: 180.00,
-    description: 'Annual Physical - Dr. Michael Johnson',
-    status: 'paid',
-    paidDate: '2025-01-15'
-  },
-  {
-    id: 'b3',
-    patient: patients[2],
-    date: '2025-01-08',
-    amount: 320.00,
-    description: 'Dermatology Consultation - Dr. Emily Brown',
-    status: 'overdue',
-    dueDate: '2025-01-20'
-  }
-];
-
-// Mock data for medications
 const medications = [
   {
-    id: 'm1',
-    patient: patients[0],
-    medication: 'Lisinopril 10mg',
-    dosage: '1 tablet daily',
-    prescribedBy: doctors[0],
-    startDate: '2025-01-01',
-    endDate: '2025-04-01'
+    id: 1,
+    patientId: 1,
+    name: 'Lisinopril',
+    dosage: '10mg',
+    frequency: 'Once daily',
+    startDate: '2024-01-05',
+    endDate: '2024-04-05'
   },
   {
-    id: 'm2',
-    patient: patients[1],
-    medication: 'Metformin 500mg',
-    dosage: '1 tablet twice daily',
-    prescribedBy: doctors[1],
-    startDate: '2025-01-10',
-    endDate: '2025-04-10'
-  },
-  {
-    id: 'm3',
-    patient: patients[2],
-    medication: 'Amoxicillin 500mg',
-    dosage: '1 capsule three times daily',
-    prescribedBy: doctors[2],
-    startDate: '2025-01-08',
-    endDate: '2025-01-15'
+    id: 2,
+    patientId: 2,
+    name: 'Metformin',
+    dosage: '500mg',
+    frequency: 'Twice daily',
+    startDate: '2024-01-08',
+    endDate: '2024-07-08'
   }
 ];
 
-// Mock departments
-const departments = [
-  {
-    id: 'dept1',
-    name: 'Cardiology',
-    head: 'Dr. Sarah Smith',
-    staffCount: 15,
-    capacity: 30
-  },
-  {
-    id: 'dept2',
-    name: 'General Medicine',
-    head: 'Dr. Michael Johnson',
-    staffCount: 25,
-    capacity: 50
-  },
-  {
-    id: 'dept3',
-    name: 'Dermatology',
-    head: 'Dr. Emily Brown',
-    staffCount: 8,
-    capacity: 20
-  },
-  {
-    id: 'dept4',
-    name: 'Pediatrics',
-    head: 'Dr. Robert Wilson',
-    staffCount: 12,
-    capacity: 25
-  },
-  {
-    id: 'dept5',
-    name: 'Emergency',
-    head: 'Dr. Lisa Davis',
-    staffCount: 30,
-    capacity: 40
-  }
-];
-
-// Mock users
-const users = [
-  {
-    id: 'u1',
-    username: 'admin',
-    email: 'admin@hospital.com',
-    role: 'ADMIN',
-    status: 'active',
-    createdAt: '2025-01-01'
-  },
-  {
-    id: 'u2',
-    username: 'dr.smith',
-    email: 'dr.smith@hospital.com',
-    role: 'DOCTOR',
-    status: 'active',
-    createdAt: '2025-01-02'
-  },
-  {
-    id: 'u3',
-    username: 'nurse.johnson',
-    email: 'nurse.johnson@hospital.com',
-    role: 'NURSE',
-    status: 'active',
-    createdAt: '2025-01-03'
-  },
-  {
-    id: 'u4',
-    username: 'receptionist',
-    email: 'receptionist@hospital.com',
-    role: 'RECEPTIONIST',
-    status: 'active',
-    createdAt: '2025-01-04'
-  },
-  {
-    id: 'u5',
-    username: 'patient',
-    email: 'patient@hospital.com',
-    role: 'PATIENT',
-    status: 'active',
-    createdAt: '2025-01-05'
-  }
-];
-
-// Mock reports data
-const reportsData = {
-  appointmentStats: [
-    { name: 'Mon', appointments: 24 },
-    { name: 'Tue', appointments: 32 },
-    { name: 'Wed', appointments: 28 },
-    { name: 'Thu', appointments: 35 },
-    { name: 'Fri', appointments: 42 },
-    { name: 'Sat', appointments: 18 },
-    { name: 'Sun', appointments: 12 },
-  ],
-  revenueData: [
-    { name: 'Jan', revenue: 45000 },
-    { name: 'Feb', revenue: 52000 },
-    { name: 'Mar', revenue: 48000 },
-    { name: 'Apr', revenue: 61000 },
-    { name: 'May', revenue: 55000 },
-    { name: 'Jun', revenue: 67000 },
-  ],
-  departmentData: [
-    { name: 'Cardiology', value: 35, color: '#3B82F6' },
-    { name: 'Neurology', value: 25, color: '#10B981' },
-    { name: 'Orthopedics', value: 20, color: '#F59E0B' },
-    { name: 'Pediatrics', value: 15, color: '#EF4444' },
-    { name: 'Others', value: 5, color: '#8B5CF6' },
-  ]
-};
-
-// Export all mock data
+// Combined mock data export
 const mockData = {
+  users,
   patients,
   doctors,
   appointments,
   medicalRecords,
-  billingRecords,
-  medications,
-  departments,
-  users,
-  reportsData
+  medications
 };
 
 export default mockData;
