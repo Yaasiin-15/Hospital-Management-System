@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
 import { Calendar, Users, Phone, Clock, CheckCircle, UserPlus } from 'lucide-react';
 
 const ReceptionistDashboard = () => {
+  const navigate = useNavigate();
+
   const stats = [
     { name: 'Today\'s Appointments', value: '24', icon: Calendar, color: 'text-blue-600', bg: 'bg-blue-100' },
     { name: 'Walk-ins', value: '7', icon: Users, color: 'text-green-600', bg: 'bg-green-100' },
@@ -40,19 +44,27 @@ const ReceptionistDashboard = () => {
     }
   };
 
+  const handleNewPatient = () => {
+    navigate('/receptionist/register');
+  };
+
+  const handleBookAppointment = () => {
+    navigate('/receptionist/appointments');
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Reception Dashboard</h1>
         <div className="flex items-center space-x-4">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+          <Button onClick={handleNewPatient} className="flex items-center space-x-2">
             <UserPlus className="h-4 w-4" />
             <span>New Patient</span>
-          </button>
-          <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2">
+          </Button>
+          <Button onClick={handleBookAppointment} className="flex items-center space-x-2 bg-green-600 hover:bg-green-700">
             <Calendar className="h-4 w-4" />
             <span>Book Appointment</span>
-          </button>
+          </Button>
         </div>
       </div>
 

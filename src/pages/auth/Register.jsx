@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../components/ui/Button.jsx';
-import Input from '../../components/ui/Input.jsx';
-import Card from '../../components/ui/Card.jsx';
+import { useNavigate, Link } from 'react-router-dom';
+import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Card from '../../components/ui/Card';
 import toast from 'react-hot-toast';
 
 const Register = () => {
@@ -104,9 +104,9 @@ const Register = () => {
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-600">
           Already have an account?{' '}
-          <a href="/auth/login" className="text-blue-600 hover:text-blue-500">
+          <Link to="/auth/login" className="text-blue-600 hover:text-blue-500">
             Sign in
-          </a>
+          </Link>
         </p>
       </div>
     </Card>

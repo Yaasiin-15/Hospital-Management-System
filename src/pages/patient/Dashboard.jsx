@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
 import { Calendar, FileText, DollarSign, Heart, Clock, CheckCircle } from 'lucide-react';
 
 const PatientDashboard = () => {
+  const navigate = useNavigate();
+
   const stats = [
     { name: 'Upcoming Appointments', value: '2', icon: Calendar, color: 'text-blue-600', bg: 'bg-blue-100' },
     { name: 'Medical Records', value: '8', icon: FileText, color: 'text-green-600', bg: 'bg-green-100' },
@@ -42,6 +46,10 @@ const PatientDashboard = () => {
     { id: 2, name: 'Metformin 500mg', frequency: 'Twice daily', prescribedBy: 'Dr. Johnson' },
   ];
 
+  const handleBookAppointment = () => {
+    navigate('/patient/appointments');
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -49,10 +57,10 @@ const PatientDashboard = () => {
           <h1 className="text-2xl font-bold text-gray-900">Welcome back, John!</h1>
           <p className="text-gray-600">Here's your health overview</p>
         </div>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+        <Button onClick={handleBookAppointment} className="flex items-center space-x-2">
           <Calendar className="h-4 w-4" />
           <span>Book Appointment</span>
-        </button>
+        </Button>
       </div>
 
       {/* Stats Grid */}
