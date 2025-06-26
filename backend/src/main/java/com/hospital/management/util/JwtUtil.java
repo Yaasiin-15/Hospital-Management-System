@@ -1,77 +1,137 @@
-package com.hospital.management.util;
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from 'react-hot-toast';
+import Home from './pages/Home.jsx';
+import Home from './pages/Home.jsx';
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+// Layouts
+import MainLayout from './layouts/MainLayout';
+import AuthLayout from './layouts/AuthLayout';
+import LoadingScreen from './components/ui/LoadingScreen';
 
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+// Auth Pages
+import Login from './pages/auth/Login.jsx';
+import Register from './pages/auth/Register.jsx';
 
-@Component
-public class JwtUtil {
+// Dashboard Pages
+import AdminDashboard from './pages/admin/Dashboard.jsx';
+import UserManagement from './pages/admin/UserManagement.jsx';
+import Reports from './pages/admin/Reports.jsx';
+import Settings from './pages/admin/Settings.jsx';
+import SystemMonitoring from './pages/admin/SystemMonitoring.jsx';
+import AuditLogs from './pages/admin/AuditLogs.jsx';
+import DepartmentManagement from './pages/admin/DepartmentManagement.jsx';
+import BackupManagement from './pages/admin/BackupManagement.jsx';
 
-    @Value("${jwt.secret}")
-    private String secret;
+import DoctorDashboard from './pages/doctor/Dashboard.jsx';
+import DoctorAppointments from './pages/doctor/Appointments.jsx';
+import DoctorPatients from './pages/doctor/Patients.jsx';
+import MedicalRecords from './pages/doctor/MedicalRecords.jsx';
+import DoctorSchedule from './pages/doctor/Schedule.jsx';
 
-    @Value("${jwt.expiration}")
-    private Long expiration;
+import NurseDashboard from './pages/nurse/Dashboard.jsx';
+import PatientCare from './pages/nurse/PatientCare.jsx';
+import Medications from './pages/nurse/Medications.jsx';
+import Vitals from './pages/nurse/Vitals.jsx';
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
+import ReceptionistDashboard from './pages/receptionist/Dashboard.jsx';
+import PatientRegistration from './pages/receptionist/PatientRegistration.jsx';
+import AppointmentBooking from './pages/receptionist/AppointmentBooking.jsx';
+import CheckIn from './pages/receptionist/CheckIn.jsx';
 
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
+import PatientDashboard from './pages/patient/Dashboard.jsx';
+import PatientAppointments from './pages/patient/Appointments.jsx';
+import MedicalHistory from './pages/patient/MedicalHistory.jsx';
+import Billing from './pages/patient/Billing.jsx';
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
+// Context Providers
+import { AuthProvider } from './context/AuthContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import ErrorBoundary from './components/ui/ErrorBoundary.jsx';
+import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 
-    private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-    private Key getSigningKey() {
-        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
+function App() {
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AuthProvider>
+            <Router>
+              <React.Suspense fallback={<LoadingScreen />}>
+                <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                  <Routes>
+                    {/* Public Routes */}
+                    <Route path="/auth" element={<AuthLayout />}>
+                    {/* Public Home Page */}
+                    <Route path="/" element={<Home />} />
+                    
+                      <Route path="login" element={<Login />} />
+                      <Route path="register" element={<Register />} />
+                      <Route index element={<Navigate to="/auth/login" replace />} />
+                    </Route>
 
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
+                    {/* Protected Routes */}
+                    <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+                      <Route index element={<Navigate to="/admin" replace />} />
+                      
+                      {/* Admin Routes */}
+                      <Route path="admin" element={<AdminDashboard />} />
+                      <Route path="admin/monitoring" element={<SystemMonitoring />} />
+                      <Route path="admin/audit-logs" element={<AuditLogs />} />
+                      <Route path="admin/departments" element={<DepartmentManagement />} />
+                      <Route path="admin/backup" element={<BackupManagement />} />
+                      <Route path="admin/users" element={<UserManagement />} />
+                      <Route path="admin/reports" element={<Reports />} />
+                      <Route path="admin/settings" element={<Settings />} />
+                      
+                      {/* Doctor Routes */}
+                      <Route path="doctor" element={<DoctorDashboard />} />
+                      <Route path="doctor/appointments" element={<DoctorAppointments />} />
+                      <Route path="doctor/patients" element={<DoctorPatients />} />
+                      <Route path="doctor/records" element={<MedicalRecords />} />
+                      <Route path="doctor/schedule" element={<DoctorSchedule />} />
+                      
+                      {/* Nurse Routes */}
+                      <Route path="nurse" element={<NurseDashboard />} />
+                      <Route path="nurse/patients" element={<PatientCare />} />
+                      <Route path="nurse/medications" element={<Medications />} />
+                      <Route path="nurse/vitals" element={<Vitals />} />
+                      
+                      {/* Receptionist Routes */}
+                      <Route path="receptionist" element={<ReceptionistDashboard />} />
+                      <Route path="receptionist/register" element={<PatientRegistration />} />
+                      <Route path="receptionist/appointments" element={<AppointmentBooking />} />
+                      <Route path="receptionist/checkin" element={<CheckIn />} />
+                      
+                      {/* Patient Routes */}
+                      <Route path="patient" element={<PatientDashboard />} />
+                      <Route path="patient/appointments" element={<PatientAppointments />} />
+                      <Route path="patient/history" element={<MedicalHistory />} />
+                      <Route path="patient/billing" element={<Billing />} />
+                    </Route>
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
-    }
-
-    private String createToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
-    }
-
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
+                    {/* Redirect to login */}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </div>
+              </React.Suspense>
+              <Toaster position="top-right" />
+            </Router>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
 }
-```
+
+export default App;
