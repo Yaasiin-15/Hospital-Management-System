@@ -164,8 +164,9 @@ const AdminDashboard = () => {
                   <a href="/admin/monitoring" className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors block text-center">
                     <TrendingUp className="h-6 w-6 text-yellow-600 dark:text-yellow-500 mx-auto mb-2" />
                     <span className="text-sm font-medium">System Monitor</span>
+                  </a>
                 </div>
-              </a>
+              </div>
             </Card>
           </>
         )}
