@@ -54,6 +54,7 @@ const Login = () => {
         </p>
       </div>
     </Card>
+  )
   );
 };
 
