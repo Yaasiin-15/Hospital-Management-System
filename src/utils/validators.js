@@ -356,12 +356,9 @@ export const validateUser = (data, isEdit = false) => {
   const rules = {
     username: [required, minLength(3)],
     email: [required, email],
-    role: [required]
+    role: [required],
+    password: isEdit ? [] : [required, password]
   };
-  
-  if (!isEdit) {
-    rules.password = [required, password];
-  }
   
   return validateForm(data, rules);
 };

@@ -77,11 +77,11 @@ const Sidebar = () => {
   const navigationItems = getNavigationItems();
 
   return (
-    <div className="bg-white w-64 min-h-screen shadow-lg">
+    <div className="bg-white dark:bg-gray-800 w-64 h-full shadow-lg flex flex-col overflow-hidden">
       <div className="p-6">
         <div className="flex items-center space-x-2">
           <Activity className="h-8 w-8 text-blue-600" />
-          <span className="text-xl font-bold text-gray-900">HMS</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">HMS</span>
         </div>
       </div>
       
@@ -94,8 +94,8 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `flex items-center px-3 py-2 mt-1 text-sm font-medium rounded-lg transition-colors ${
                   isActive
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:bg-opacity-30 dark:text-blue-200'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                 }`
               }
             >

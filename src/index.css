@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base styles for dark mode */
+.dark {
+  color-scheme: dark;
+}
+
 /* Custom scrollbar styles */
 ::-webkit-scrollbar {
   width: 6px;
@@ -9,20 +14,30 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  @apply bg-gray-100 dark:bg-gray-800;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  @apply bg-gray-300 dark:bg-gray-600;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  @apply bg-gray-400 dark:bg-gray-500;
 }
 
-/* Smooth transitions */
-* {
+/* Base styles */
+html {
+  @apply antialiased;
+}
+
+body {
+  @apply text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-900;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Transitions */
+*, ::before, ::after {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
@@ -36,5 +51,21 @@
 @media print {
   .no-print {
     display: none !important;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
   }
 }

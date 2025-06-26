@@ -127,7 +127,7 @@ const DoctorAppointments = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
         <div className="flex items-center space-x-4">
           <input
@@ -140,7 +140,7 @@ const DoctorAppointments = () => {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
         <Card className="p-6">
           <div className="flex items-center">
             <div className="p-3 rounded-lg bg-blue-100">

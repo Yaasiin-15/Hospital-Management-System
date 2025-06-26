@@ -51,6 +51,7 @@ import Billing from './pages/patient/Billing.jsx';
 // Context Providers
 import { AuthProvider } from './context/AuthContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
 import ErrorBoundary from './components/ui/ErrorBoundary.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 
@@ -67,11 +68,12 @@ function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <NotificationProvider>
-            <Router>
-              <div className="min-h-screen bg-gray-50">
-                <Routes>
+        <ThemeProvider>
+          <React.Suspense fallback={<LoadingScreen />}>
+            <AuthProvider>
+              <NotificationProvider>
+                <Router>
+                  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
                   {/* Public Routes */}
                   <Route path="/auth" element={<AuthLayout />}>
                     <Route path="login" element={<Login />} />
@@ -121,11 +123,12 @@ function App() {
                   {/* Redirect to login */}
                   <Route path="*" element={<Navigate to="/auth/login" replace />} />
                 </Routes>
-                <Toaster position="top-right" />
-              </div>
-            </Router>
-          </NotificationProvider>
-        </AuthProvider>
+                  </div>
+                </Router>
+              </NotificationProvider>
+            </AuthProvider>
+          </React.Suspense>
+        </ThemeProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );

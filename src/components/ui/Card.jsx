@@ -24,7 +24,7 @@ const Card = ({
 
   return (
     <div className={twMerge(clsx(
-      'bg-white rounded-lg border border-gray-200',
+      'bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700',
       paddingClasses[padding],
       shadowClasses[shadow],
       className
