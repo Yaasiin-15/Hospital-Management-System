@@ -4,49 +4,49 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 
 // Layouts
-import MainLayout from './layouts/MainLayout';
-import AuthLayout from './layouts/AuthLayout';
+import MainLayout from './layouts/MainLayout.jsx';
+import AuthLayout from './layouts/AuthLayout.jsx';
 
 // Auth Pages
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login from './pages/auth/Login.jsx';
+import Register from './pages/auth/Register.jsx';
 
 // Dashboard Pages
-import AdminDashboard from './pages/admin/Dashboard';
-import DoctorDashboard from './pages/doctor/Dashboard';
-import NurseDashboard from './pages/nurse/Dashboard';
-import ReceptionistDashboard from './pages/receptionist/Dashboard';
-import PatientDashboard from './pages/patient/Dashboard';
+import AdminDashboard from './pages/admin/Dashboard.jsx';
+import DoctorDashboard from './pages/doctor/Dashboard.jsx';
+import NurseDashboard from './pages/nurse/Dashboard.jsx';
+import ReceptionistDashboard from './pages/receptionist/Dashboard.jsx';
+import PatientDashboard from './pages/patient/Dashboard.jsx';
 
 // Admin Pages
-import UserManagement from './pages/admin/UserManagement';
-import Reports from './pages/admin/Reports';
-import Settings from './pages/admin/Settings';
+import UserManagement from './pages/admin/UserManagement.jsx';
+import Reports from './pages/admin/Reports.jsx';
+import Settings from './pages/admin/Settings.jsx';
 
 // Doctor Pages
-import DoctorAppointments from './pages/doctor/Appointments';
-import DoctorPatients from './pages/doctor/Patients';
-import MedicalRecords from './pages/doctor/MedicalRecords';
-import DoctorSchedule from './pages/doctor/Schedule';
+import DoctorAppointments from './pages/doctor/Appointments.jsx';
+import DoctorPatients from './pages/doctor/Patients.jsx';
+import MedicalRecords from './pages/doctor/MedicalRecords.jsx';
+import DoctorSchedule from './pages/doctor/Schedule.jsx';
 
 // Nurse Pages
-import PatientCare from './pages/nurse/PatientCare';
-import Medications from './pages/nurse/Medications';
-import Vitals from './pages/nurse/Vitals';
+import PatientCare from './pages/nurse/PatientCare.jsx';
+import Medications from './pages/nurse/Medications.jsx';
+import Vitals from './pages/nurse/Vitals.jsx';
 
 // Receptionist Pages
-import PatientRegistration from './pages/receptionist/PatientRegistration';
-import AppointmentBooking from './pages/receptionist/AppointmentBooking';
-import CheckIn from './pages/receptionist/CheckIn';
+import PatientRegistration from './pages/receptionist/PatientRegistration.jsx';
+import AppointmentBooking from './pages/receptionist/AppointmentBooking.jsx';
+import CheckIn from './pages/receptionist/CheckIn.jsx';
 
 // Patient Pages
-import PatientAppointments from './pages/patient/Appointments';
-import MedicalHistory from './pages/patient/MedicalHistory';
-import Billing from './pages/patient/Billing';
+import PatientAppointments from './pages/patient/Appointments.jsx';
+import MedicalHistory from './pages/patient/MedicalHistory.jsx';
+import Billing from './pages/patient/Billing.jsx';
 
 // Context Providers
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/common/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext.jsx';
+import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
