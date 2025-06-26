@@ -202,7 +202,6 @@ const SystemMonitoring = () => {
               </div>
             ))}
           </div>
-        </Card>
       </Card>
 
       {/* Quick Actions */}
