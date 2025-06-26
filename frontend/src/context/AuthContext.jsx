@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setIsLoading(true);
     try {
-      // API call to login
       try {
         // Try to login with the API
         const response = await api.post('/auth/login', { email, password });
@@ -89,17 +88,17 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('authToken');
   };
 
-  const value = {
   // Handle unauthorized error
   const handleUnauthorized = () => {
     logout();
     toast.error("Session expired. Please login again.");
   };
 
-    handleUnauthorized,
+  const value = {
     user,
     login,
     logout,
+    handleUnauthorized,
     isLoading,
     isAuthenticated: !!user
   };

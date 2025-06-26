@@ -27,6 +27,7 @@ const SearchInput = ({
   className = '',
   autoFocus = false,
   responsive = true,
+  onBlur
 }) => {
   const [focused, setFocused] = useState(autoFocus);
   const [localValue, setLocalValue] = useState(value);
@@ -90,6 +91,16 @@ const SearchInput = ({
       }
     }
   };
+
+  const handleInputBlur = (e) => {
+    setFocused(false);
+    if (responsive && !localValue) {
+      setCollapsed(true);
+    }
+    if (onBlur) {
+      onBlur(e);
+    }
+  };
   
   return (
     <div className={`relative ${className}`}>
@@ -111,19 +122,15 @@ const SearchInput = ({
           type="text"
           value={localValue}
           onChange={handleChange}
+          onBlur={handleInputBlur}
           placeholder={placeholder}
           className={`w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200
             ${responsive && collapsed ? 'opacity-0' : 'opacity-100'}`}
           onFocus={() => setFocused(true)}
-          onBlur={() => {
-            setFocused(false);
-            if (responsive && !localValue) {
-              setCollapsed(true);
-            }
-          }}
           disabled={responsive && collapsed}
+          aria-label={placeholder}
         />
         
         {localValue && !collapsed && (
@@ -131,6 +138,7 @@ const SearchInput = ({
             type="button"
             onClick={handleClear}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+            aria-label="Clear search"
           >
             <X className="h-4 w-4" />
           </button>

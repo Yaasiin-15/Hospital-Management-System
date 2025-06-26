@@ -73,7 +73,7 @@ class ErrorBoundary extends React.Component {
                 variant="outline"
                 onClick={this.handleReload}
                 className="w-full"
-                leftIcon={<RefreshCw className="h-4 w-4" />}
+                leftIcon={<RefreshCw className="h-4 w-4 mr-2" />}
               >
                 Reload Page
               </Button>

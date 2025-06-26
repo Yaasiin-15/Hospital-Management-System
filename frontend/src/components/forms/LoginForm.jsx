@@ -35,7 +35,19 @@ const LoginForm = () => {
     try {
       await login(formData.email, formData.password);
       toast.success('Login successful!');
-      navigate('/admin'); // Default redirect
+      
+      // Navigate based on user role
+      if (formData.email.includes('admin')) {
+        navigate('/admin');
+      } else if (formData.email.includes('doctor')) {
+        navigate('/doctor');
+      } else if (formData.email.includes('nurse')) {
+        navigate('/nurse');
+      } else if (formData.email.includes('receptionist')) {
+        navigate('/receptionist');
+      } else {
+        navigate('/patient');
+      }
     } catch (error) {
       console.error("Login error:", error);
       toast.error(error?.message || 'Login failed. Please try again.');
@@ -124,30 +136,37 @@ const LoginForm = () => {
         <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-4">Demo Accounts</p>
         <div className="grid grid-cols-3 gap-2 text-xs">
           <button 
+            type="button"
             onClick={() => setDemoAccount('admin')}
             className="py-2 px-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
           >
             Admin
           </button>
           <button 
+            type="button"
             onClick={() => setDemoAccount('doctor')}
             className="py-2 px-3 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
           >
             Doctor
           </button>
           <button 
+            type="button"
             onClick={() => setDemoAccount('nurse')}
             className="py-2 px-3 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
           >
             Nurse
           </button>
+        </div>
+        <div className="grid grid-cols-2 gap-2 text-xs mt-2">
           <button 
+            type="button"
             onClick={() => setDemoAccount('receptionist')}
             className="py-2 px-3 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded hover:bg-yellow-100 dark:hover:bg-yellow-900/50 transition-colors"
           >
             Receptionist
           </button>
           <button 
+            type="button"
             onClick={() => setDemoAccount('patient')}
             className="py-2 px-3 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
           >

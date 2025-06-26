@@ -2,7 +2,7 @@
 // It's used to allow the frontend to function in a demo mode
 
 // Mock data for patients
-export const patients = [
+const patients = [
   {
     id: 'p1',
     name: 'John Doe',
@@ -51,7 +51,7 @@ export const patients = [
 ];
 
 // Mock data for doctors
-export const doctors = [
+const doctors = [
   {
     id: 'd1',
     name: 'Dr. Sarah Smith',
@@ -79,7 +79,7 @@ export const doctors = [
 ];
 
 // Mock data for appointments
-export const appointments = [
+const appointments = [
   {
     id: 'a1',
     patient: patients[0],
@@ -113,7 +113,7 @@ export const appointments = [
 ];
 
 // Mock data for medical records
-export const medicalRecords = [
+const medicalRecords = [
   {
     id: 'mr1',
     patient: patients[0],
@@ -144,7 +144,7 @@ export const medicalRecords = [
 ];
 
 // Mock data for billing
-export const billingRecords = [
+const billingRecords = [
   {
     id: 'b1',
     patient: patients[0],
@@ -175,7 +175,7 @@ export const billingRecords = [
 ];
 
 // Mock data for medications
-export const medications = [
+const medications = [
   {
     id: 'm1',
     patient: patients[0],
@@ -206,7 +206,7 @@ export const medications = [
 ];
 
 // Mock departments
-export const departments = [
+const departments = [
   {
     id: 'dept1',
     name: 'Cardiology',
@@ -245,7 +245,7 @@ export const departments = [
 ];
 
 // Mock users
-export const users = [
+const users = [
   {
     id: 'u1',
     username: 'admin',
@@ -289,7 +289,7 @@ export const users = [
 ];
 
 // Mock reports data
-export const reportsData = {
+const reportsData = {
   appointmentStats: [
     { name: 'Mon', appointments: 24 },
     { name: 'Tue', appointments: 32 },
@@ -308,16 +308,16 @@ export const reportsData = {
     { name: 'Jun', revenue: 67000 },
   ],
   departmentData: [
-    { name: 'Cardiology', value: 35 },
-    { name: 'Neurology', value: 25 },
-    { name: 'Orthopedics', value: 20 },
-    { name: 'Pediatrics', value: 15 },
-    { name: 'Others', value: 5 },
+    { name: 'Cardiology', value: 35, color: '#3B82F6' },
+    { name: 'Neurology', value: 25, color: '#10B981' },
+    { name: 'Orthopedics', value: 20, color: '#F59E0B' },
+    { name: 'Pediatrics', value: 15, color: '#EF4444' },
+    { name: 'Others', value: 5, color: '#8B5CF6' },
   ]
 };
 
 // Export all mock data
-export default {
+const mockData = {
   patients,
   doctors,
   appointments,
@@ -328,3 +328,5 @@ export default {
   users,
   reportsData
 };
+
+export default mockData;
