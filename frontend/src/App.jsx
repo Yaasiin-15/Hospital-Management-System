@@ -69,19 +69,19 @@ function App() {
               <React.Suspense fallback={<LoadingScreen />}>
                 <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
                   <Routes>
-                    {/* Public Routes */}
-                    <Route path="/auth" element={<AuthLayout />}>
                     {/* Public Home Page */}
                     <Route path="/" element={<Home />} />
                     
+                    {/* Public Routes */}
+                    <Route path="/auth" element={<AuthLayout />}>
                       <Route path="login" element={<Login />} />
                       <Route path="register" element={<Register />} />
                       <Route index element={<Navigate to="/auth/login" replace />} />
                     </Route>
 
                     {/* Protected Routes */}
-                    <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
-                      <Route index element={<Navigate to="/admin" replace />} />
+                    <Route path="/dashboard" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+                      <Route index element={<Navigate to="/dashboard/admin" replace />} />
                       
                       {/* Admin Routes */}
                       <Route path="admin" element={<AdminDashboard />} />
@@ -119,7 +119,7 @@ function App() {
                       <Route path="patient/billing" element={<Billing />} />
                     </Route>
 
-                    {/* Redirect to login */}
+                    {/* Redirect to home for unmatched routes */}
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </div>
