@@ -1,3 +1,4 @@
+// User Types
 export const UserRole = {
   ADMIN: 'ADMIN',
   DOCTOR: 'DOCTOR',
@@ -6,10 +7,31 @@ export const UserRole = {
   PATIENT: 'PATIENT'
 };
 
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER'
+};
+
 export const AppointmentStatus = {
   SCHEDULED: 'SCHEDULED',
   CONFIRMED: 'CONFIRMED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  NO_SHOW: 'NO_SHOW'
+};
+
+export const AppointmentType = {
+  CONSULTATION: 'CONSULTATION',
+  FOLLOW_UP: 'FOLLOW_UP',
+  EMERGENCY: 'EMERGENCY',
+  ROUTINE_CHECKUP: 'ROUTINE_CHECKUP'
+};
+
+export const BillingStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
   CANCELLED: 'CANCELLED'
 };
