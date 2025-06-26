@@ -117,8 +117,6 @@ function App() {
                     <Route path="patient/history" element={<MedicalHistory />} />
                     <Route path="patient/billing" element={<Billing />} />
                   </Route>
-  );
-}
 
                   {/* Redirect to login */}
                   <Route path="*" element={<Navigate to="/auth/login" replace />} />
@@ -130,6 +128,7 @@ function App() {
         </AuthProvider>
       </QueryClientProvider>
     </ErrorBoundary>
-  )
+  );
 }
+
 export default App;
