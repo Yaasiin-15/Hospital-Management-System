@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home.jsx';
-import Home from './pages/Home.jsx';
+
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
