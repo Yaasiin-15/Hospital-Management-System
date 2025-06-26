@@ -16,7 +16,7 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
           950: '#082f49',
-      },
+              },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
         'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -27,3 +27,6 @@ export default {
           '0%': { width: '0%' },
           '50%': { width: '70%' },
           '100%': { width: '100%' }
+        }
+      }
+}

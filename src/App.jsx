@@ -4,8 +4,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 
 // Layouts
-import MainLayout from './layouts/MainLayout.jsx';
-import AuthLayout from './layouts/AuthLayout.jsx';
+import MainLayout from './layouts/MainLayout';
+import AuthLayout from './layouts/AuthLayout';
+import LoadingScreen from './components/ui/LoadingScreen';
 
 // Auth Pages
 import Login from './pages/auth/Login.jsx';
@@ -51,7 +52,6 @@ import Billing from './pages/patient/Billing.jsx';
 // Context Providers
 import { AuthProvider } from './context/AuthContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
-import { ThemeProvider } from './context/ThemeContext.jsx';
 import ErrorBoundary from './components/ui/ErrorBoundary.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 
@@ -66,23 +66,23 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <ErrorBoundary>
+    <ErrorBoundary fallback={<div className="p-8 text-center">Something went wrong. Please refresh the page.</div>}>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <React.Suspense fallback={<LoadingScreen />}>
-            <AuthProvider>
-              <NotificationProvider>
-                <Router>
-                  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-                  {/* Public Routes */}
-                  <Route path="/auth" element={<AuthLayout />}>
-                    <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
-                  </Route>
+        <React.Suspense fallback={<LoadingScreen />}>
+          <AuthProvider>
+            <NotificationProvider>
+              <Router>
+                <div className="min-h-screen bg-gray-50">
+                  <Routes>
+                    {/* Public Routes */}
+                    <Route path="/auth" element={<AuthLayout />}>
+                      <Route path="login" element={<Login />} />
+                      <Route path="register" element={<Register />} />
+                    </Route>
 
-                  {/* Protected Routes */}
-                  <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
-                    <Route index element={<Navigate to="/admin" replace />} />
+                    {/* Protected Routes */}
+                    <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+                      <Route index element={<Navigate to="/admin" replace />} />
                     
                     {/* Admin Routes */}
                     <Route path="admin" element={<AdminDashboard />} />
@@ -123,15 +123,16 @@ function App() {
                   {/* Redirect to login */}
                   <Route path="*" element={<Navigate to="/auth/login" replace />} />
                 </Routes>
-                  </div>
-                </Router>
-              </NotificationProvider>
-            </AuthProvider>
-          </React.Suspense>
-        </ThemeProvider>
+                <Toaster position="top-right" />
+              </div>
+            </Router>
+          </NotificationProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );
 }
 
 export default App;
+  )
+}
