@@ -11,8 +11,8 @@ import {
   UserCheck,
   Stethoscope
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext.jsx';
-import { UserRole } from '../../types/index.js';
+import { useAuth } from '../../context/AuthContext';
+import { UserRole } from '../../types';
 
 const Sidebar = () => {
   const { user } = useAuth();
