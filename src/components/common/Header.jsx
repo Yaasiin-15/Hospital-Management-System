@@ -1,7 +1,8 @@
 import React from 'react';
-import { Bell, Search, User, LogOut } from 'lucide-react';
+import { Search, User, LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Button from '../ui/Button';
+import NotificationDropdown from './NotificationDropdown';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -27,9 +28,7 @@ const Header = () => {
           </div>
 
           {/* Notifications */}
-          <Button variant="ghost" size="sm" className="p-2">
-            <Bell className="h-5 w-5" />
-          </Button>
+          <NotificationDropdown />
 
           {/* User Menu */}
           <div className="flex items-center space-x-3">

@@ -50,6 +50,8 @@ import Billing from './pages/patient/Billing.jsx';
 
 // Context Providers
 import { AuthProvider } from './context/AuthContext.jsx';
+import { NotificationProvider } from './context/NotificationContext.jsx';
+import ErrorBoundary from './components/ui/ErrorBoundary.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 
 const queryClient = new QueryClient({
@@ -63,66 +65,69 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router>
-          <div className="min-h-screen bg-gray-50">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/auth" element={<AuthLayout />}>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-              </Route>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <NotificationProvider>
+            <Router>
+              <div className="min-h-screen bg-gray-50">
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/auth" element={<AuthLayout />}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                  </Route>
 
-              {/* Protected Routes */}
-              <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
-                <Route index element={<Navigate to="/admin" replace />} />
-                
-                {/* Admin Routes */}
-                <Route path="admin" element={<AdminDashboard />} />
-                <Route path="admin/monitoring" element={<SystemMonitoring />} />
-                <Route path="admin/audit-logs" element={<AuditLogs />} />
-                <Route path="admin/departments" element={<DepartmentManagement />} />
-                <Route path="admin/backup" element={<BackupManagement />} />
-                <Route path="admin/users" element={<UserManagement />} />
-                <Route path="admin/reports" element={<Reports />} />
-                <Route path="admin/settings" element={<Settings />} />
-                
-                {/* Doctor Routes */}
-                <Route path="doctor" element={<DoctorDashboard />} />
-                <Route path="doctor/appointments" element={<DoctorAppointments />} />
-                <Route path="doctor/patients" element={<DoctorPatients />} />
-                <Route path="doctor/records" element={<MedicalRecords />} />
-                <Route path="doctor/schedule" element={<DoctorSchedule />} />
-                
-                {/* Nurse Routes */}
-                <Route path="nurse" element={<NurseDashboard />} />
-                <Route path="nurse/patients" element={<PatientCare />} />
-                <Route path="nurse/medications" element={<Medications />} />
-                <Route path="nurse/vitals" element={<Vitals />} />
-                
-                {/* Receptionist Routes */}
-                <Route path="receptionist" element={<ReceptionistDashboard />} />
-                <Route path="receptionist/register" element={<PatientRegistration />} />
-                <Route path="receptionist/appointments" element={<AppointmentBooking />} />
-                <Route path="receptionist/checkin" element={<CheckIn />} />
-                
-                {/* Patient Routes */}
-                <Route path="patient" element={<PatientDashboard />} />
-                <Route path="patient/appointments" element={<PatientAppointments />} />
-                <Route path="patient/history" element={<MedicalHistory />} />
-                <Route path="patient/billing" element={<Billing />} />
-              </Route>
-
-              {/* Redirect to login */}
-              <Route path="*" element={<Navigate to="/auth/login" replace />} />
-            </Routes>
-            <Toaster position="top-right" />
-          </div>
-        </Router>
-      </AuthProvider>
-    </QueryClientProvider>
+                  {/* Protected Routes */}
+                  <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+                    <Route index element={<Navigate to="/admin" replace />} />
+                    
+                    {/* Admin Routes */}
+                    <Route path="admin" element={<AdminDashboard />} />
+                    <Route path="admin/monitoring" element={<SystemMonitoring />} />
+                    <Route path="admin/audit-logs" element={<AuditLogs />} />
+                    <Route path="admin/departments" element={<DepartmentManagement />} />
+                    <Route path="admin/backup" element={<BackupManagement />} />
+                    <Route path="admin/users" element={<UserManagement />} />
+                    <Route path="admin/reports" element={<Reports />} />
+                    <Route path="admin/settings" element={<Settings />} />
+                    
+                    {/* Doctor Routes */}
+                    <Route path="doctor" element={<DoctorDashboard />} />
+                    <Route path="doctor/appointments" element={<DoctorAppointments />} />
+                    <Route path="doctor/patients" element={<DoctorPatients />} />
+                    <Route path="doctor/records" element={<MedicalRecords />} />
+                    <Route path="doctor/schedule" element={<DoctorSchedule />} />
+                    
+                    {/* Nurse Routes */}
+                    <Route path="nurse" element={<NurseDashboard />} />
+                    <Route path="nurse/patients" element={<PatientCare />} />
+                    <Route path="nurse/medications" element={<Medications />} />
+                    <Route path="nurse/vitals" element={<Vitals />} />
+                    
+                    {/* Receptionist Routes */}
+                    <Route path="receptionist" element={<ReceptionistDashboard />} />
+                    <Route path="receptionist/register" element={<PatientRegistration />} />
+                    <Route path="receptionist/appointments" element={<AppointmentBooking />} />
+                    <Route path="receptionist/checkin" element={<CheckIn />} />
+                    
+                    {/* Patient Routes */}
+                    <Route path="patient" element={<PatientDashboard />} />
+                    <Route path="patient/appointments" element={<PatientAppointments />} />
+                    <Route path="patient/history" element={<MedicalHistory />} />
+                    <Route path="patient/billing" element={<Billing />} />
+                  </Route>
   );
 }
 
+                  {/* Redirect to login */}
+                  <Route path="*" element={<Navigate to="/auth/login" replace />} />
+                </Routes>
+                <Toaster position="top-right" />
+              </div>
+            </Router>
+          </NotificationProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
 export default App;
