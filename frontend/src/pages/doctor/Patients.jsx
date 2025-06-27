@@ -45,7 +45,7 @@ const DoctorPatients = () => {
         <h1 className="text-2xl font-bold text-gray-900">My Patients</h1>
         <Button className="flex items-center">
           <Filter className="h-4 w-4 mr-2" />
-          Filter
+          <span>Filter</span>
         </Button>
       </div>
 

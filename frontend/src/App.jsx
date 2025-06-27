@@ -25,7 +25,8 @@ import BackupManagement from './pages/admin/BackupManagement.jsx';
 
 import DoctorDashboard from './pages/doctor/Dashboard.jsx';
 import DoctorAppointments from './pages/doctor/Appointments.jsx';
-import DoctorPatients from './pages/doctor/Patients.jsx';
+// Temporarily comment out missing component
+// import DoctorPatients from './pages/doctor/Patients.jsx';
 import MedicalRecords from './pages/doctor/MedicalRecords.jsx';
 import DoctorSchedule from './pages/doctor/Schedule.jsx';
 
@@ -96,7 +97,8 @@ function App() {
                       {/* Doctor Routes */}
                       <Route path="doctor" element={<DoctorDashboard />} />
                       <Route path="doctor/appointments" element={<DoctorAppointments />} />
-                      <Route path="doctor/patients" element={<DoctorPatients />} />
+                      {/* Temporarily comment out missing component */}
+                      {/* <Route path="doctor/patients" element={<DoctorPatients />} /> */}
                       <Route path="doctor/records" element={<MedicalRecords />} />
                       <Route path="doctor/schedule" element={<DoctorSchedule />} />
                       
