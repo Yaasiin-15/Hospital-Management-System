@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../../components/ui/Card';
-import Badge from '../../components/ui/Badge';
-import Button from '../../components/ui/Button';
+import Card from '../../components/ui/Card.jsx';
+import Badge from '../../components/ui/Badge.jsx';
+import Button from '../../components/ui/Button.jsx';
 
 const SystemMonitoring = () => {
   const [systemStats, setSystemStats] = useState({
