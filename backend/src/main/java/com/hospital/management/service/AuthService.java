@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class AuthService {
                 )
             );
 
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             final String token = jwtUtil.generateToken(userDetails);
 
@@ -56,6 +58,7 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest registerRequest) {
+        // Check if email or username already exists
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
@@ -64,14 +67,19 @@ public class AuthService {
             throw new RuntimeException("Username already exists");
         }
 
+        // Create new user
         User user = new User();
         user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        
+        // Set role - default to PATIENT if not specified
         user.setRole(registerRequest.getRole() != null ? registerRequest.getRole() : User.UserRole.PATIENT);
 
+        // Save user
         user = userRepository.save(user);
 
+        // Generate JWT token
         final UserDetails userDetails = org.springframework.security.core.userdetails.User
             .withUsername(user.getEmail())
             .password(user.getPassword())
@@ -81,5 +89,16 @@ public class AuthService {
         final String token = jwtUtil.generateToken(userDetails);
         
         return new AuthResponse(token, user.getId(), user.getUsername(), user.getEmail(), user.getRole());
+    }
+    
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("User not authenticated");
+        }
+        
+        String email = authentication.getName();
+        return userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
