@@ -177,7 +177,7 @@ const LoginForm = () => {
           </button>
         </div>
         <p className="text-xs text-center text-gray-500 dark:text-gray-500 mt-4">
-          <span className="font-medium">New user?</span> Please use the <a href="/auth/register" className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">register page</a>
+          <span className="font-medium">New user?</span> Please use the <a href="/auth/register" className=\"text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">register page</a>
         </p>
       </div>
     </div>
