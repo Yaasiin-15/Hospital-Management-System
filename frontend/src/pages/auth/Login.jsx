@@ -29,14 +29,3 @@ const Login = () => {
 };
 
 export default Login;
-
-          <Link to="/auth/register" className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
-            Sign up
-          </Link>
-        </p>
-      </div>
-    </>
-  );
-};
-
-export default Login;
