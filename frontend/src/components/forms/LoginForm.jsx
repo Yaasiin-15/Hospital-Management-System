@@ -6,10 +6,19 @@ import Input from '../ui/Input';
 import toast from 'react-hot-toast';
 import { Eye, EyeOff } from 'lucide-react';
 
+// User roles for demo purposes
+const DEMO_USERS = {
+  admin: { email: 'admin@hospital.com', password: 'password' },
+  doctor: { email: 'doctor@hospital.com', password: 'password' },
+  nurse: { email: 'nurse@hospital.com', password: 'password' },
+  receptionist: { email: 'receptionist@hospital.com', password: 'password' },
+  patient: { email: 'patient@hospital.com', password: 'password' }
+};
+
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: DEMO_USERS.admin.email,
+    password: DEMO_USERS.admin.password
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -133,15 +142,9 @@ const LoginForm = () => {
 
       {/* Quick login options for demo purposes */}
       <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
-        <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-4">Demo Accounts</p>
-        <div className="grid grid-cols-3 gap-2 text-xs">
-          <button 
-            type="button"
-            onClick={() => setDemoAccount('admin')}
-            className="py-2 px-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
-          >
-            Admin
-          </button>
+        <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-4">Other Demo Accounts</p>
+        <p className="text-xs text-center text-gray-500 dark:text-gray-500 mb-3">Admin login is pre-filled. Use these for other roles:</p>
+        <div className="grid grid-cols-2 gap-2 text-xs">
           <button 
             type="button"
             onClick={() => setDemoAccount('doctor')}
@@ -173,7 +176,9 @@ const LoginForm = () => {
             Patient
           </button>
         </div>
-        <p className="text-xs text-center text-gray-500 dark:text-gray-500 mt-2">Password: password</p>
+        <p className="text-xs text-center text-gray-500 dark:text-gray-500 mt-4">
+          <span className="font-medium">New user?</span> Please use the <a href="/auth/register" className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">register page</a>
+        </p>
       </div>
     </div>
   );
