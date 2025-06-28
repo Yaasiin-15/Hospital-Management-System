@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Search, User, LogOut, Menu, Sun, Moon, Bell } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button.jsx';
 import SearchInput from '../ui/SearchInput.jsx';
 
